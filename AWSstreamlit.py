@@ -4,7 +4,7 @@ import io
 import boto3
 import requests
 from datetime import datetime
-import uuAWs
+import uuid
 
 # S3 bucket details
 bucket_name = 'awsairflowbucket'
