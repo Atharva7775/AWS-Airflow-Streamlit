@@ -1,3 +1,7 @@
 pandas
 boto
 openpyxl
+streamlit
+datetime
+requests
+uuid
