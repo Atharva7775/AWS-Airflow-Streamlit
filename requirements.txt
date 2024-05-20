@@ -1,5 +1,5 @@
 pandas
-boto
+boto3
 openpyxl
 streamlit
 datetime
