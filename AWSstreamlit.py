@@ -8,14 +8,7 @@ import uuid
 import logging
 from botocore.config import Config
 
-
-
-
-
-delay = 10 * 60 * 60
-
-
-
+# delay = 10 * 60 * 60
 @st.cache_resource
 def get_session_info(region, env_name):
     
@@ -210,31 +203,35 @@ def main():
         x_file = st.checkbox("Processed X file")
         y_file = st.checkbox("Processed Y file")
 
-        show = st.button("Generate Results")
-        if show:
+    show = st.button("Generate Results")
+    if show:
+        if not (x_file or y_file) or not (x_dataset or y_dataset):
+            st.error("Please select the datasets to connect and process.")
+        else:
+            st.markdown("<h2 style='text-align: center;'>Download Updated CSV</h2>", unsafe_allow_html=True)
             if x_file and x_dataset:
                 data = convert_df_to_excel(df, 'Client Profile')
                 print("Inside X dataset")
                 # url = f"{airflow_base_url}/dags/streamlit_app/dagRuns"
                 trigger_dag("updated_dag2", session_cookie, web_server_host_name)
                 st.success("DAG triggered successfully!")
-                st.markdown("<h2 style='text-align: center;'>Download Updated CSV</h2>", unsafe_allow_html=True)
                 st.download_button(
-                    label="Press to Download X processed file",
-                    data=data,
-                    file_name="Processed_X_file.xlsx"
+                label="Press to Download X processed file",
+                data=data,
+                file_name="Processed_X_file.xlsx"
                 )
             if y_file and y_dataset:
                 data = convert_df_to_excel(df1, 'Family Members')
                 print("Inside Y dataset")
                 url = f"{airflow_base_url}/dags/streamlit_app/dagRuns"
                 trigger_dag("updated_dag2", session_cookie, web_server_host_name)
-                st.download_button(
-                    label="Press to Download Y processed file",
-                    data=data,
-                    file_name="Processed_Y_file.xlsx"
-                )
                 st.success("DAG 'Processed_Y_file' triggered successfully!")
+                st.download_button(
+                label="Press to Download Y processed file",
+                data=data,
+                file_name="Processed_Y_file.xlsx"
+                )
+                
 
 if __name__ == "__main__":
     main()
