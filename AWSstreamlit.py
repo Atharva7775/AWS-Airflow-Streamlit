@@ -5,6 +5,13 @@ import boto3
 import requests
 from datetime import datetime
 import uuid
+import logging
+from botocore.config import Config
+
+
+
+
+
 
 # S3 bucket details
 bucket_name = 'awsairflowbucket'
