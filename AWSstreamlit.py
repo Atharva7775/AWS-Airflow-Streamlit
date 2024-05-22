@@ -152,7 +152,7 @@ def run_dag(dag_id):
     url = f"{airflow_base_url}/dags/{dag_id}/dagRuns"
     response = requests.post(url, headers=headers, auth=auth)
     if response.status_code == 200:
-        st.success("DAG run successfully triggered!")
+        st.success("DAG run successfully triggered")
     else:
         st.error("Failed to trigger DAG run.")
 
